@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My First App</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="edit_email">E-Mail</string>
+    <string name="edit_pwd">Senha</string>
+    <string name="button_login">Login</string>
+    <string name="button_SignUp">Sign Up</string>
+</resources>
