@@ -25,10 +25,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity  android:name=".JornadaActivity"
-            android:parentActivityName= ".DisplayMessageActivity">
-        <meta-data android:name="android.support.PARENT_ACTIVITY"
-            android:value=".DisplayMessageActivity"/>
+        <activity
+            android:name=".JornadaActivity"
+            android:parentActivityName=".DisplayMessageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayMessageActivity" />
+        </activity>
+        <activity android:name=".jornada2"
+            android:parentActivityName=".DisplayMessageActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DisplayMessageActivity" />
+                />
         </activity>
     </application>
 

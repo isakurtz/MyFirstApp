@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,7 +40,8 @@ public class JornadaActivity extends AppCompatActivity {
                 u= a;
             }
         }
-
+        Button b = findViewById(R.id.button2);
+        b.setVisibility(View.GONE);
 
     }
 
@@ -53,10 +55,19 @@ public class JornadaActivity extends AppCompatActivity {
                 if (checked){
                     TextView editText = findViewById(R.id.resultado);
                     editText.setText("Parabéns + 30 pontos!");
-                    myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+30 +"");}
+                    myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+30 +"");
+                    Button b = findViewById(R.id.button2);
+                    b.setVisibility(View.VISIBLE);
+                }
                 break;
             default: TextView editText = findViewById(R.id.resultado);
                 editText.setText("Resposta Errada");
         }
+    }
+
+    public void butoonclicked(View view){
+        Intent intent = new Intent(this, jornada2.class);
+        //String message = editText.getText().toString();
+        startActivity(intent);
     }
 }
