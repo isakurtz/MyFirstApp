@@ -12,6 +12,8 @@
         android:layout_height="82dp"
         android:layout_marginTop="8dp"
         android:text="“Se João estuda, então Marcela chora.” A negação dessa proposição é logicamente equivalente a:"
+        android:textAppearance="@android:style/TextAppearance.Material.Large"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="Selected"
-            android:text="João não estuda ou Marcela não chora." />
+            android:text="João não estuda e Marcela não chora." />
 
         <RadioButton
             android:id="@+id/radioButton7"

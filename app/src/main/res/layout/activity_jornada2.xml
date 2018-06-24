@@ -11,7 +11,7 @@
         android:layout_width="244dp"
         android:layout_height="54dp"
         android:layout_marginTop="16dp"
-        android:text="O preço do livro com capa é 7 dólares e 60 centavos. Qual o preço da capa se o livro é 7 dólares mais alto?"
+        android:text="O preço do livro com capa é 7 dólares e 60 centavos. Qual o preço da capa se o livro é 7 dólares mais caro?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"

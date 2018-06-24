@@ -75,16 +75,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void insertDatabase(View view){
-
-        String date = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss" ).format( Calendar.getInstance().getTime());
-        myRef = database.getReference(date);
-        //DatabaseReference myRef = database.getReference("message01");
-        EditText editText = findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        myRef.setValue(message);
-        //myRef.setValue("tets");
-    }
+//    public void insertDatabase(View view){
+//
+//        String date = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss" ).format( Calendar.getInstance().getTime());
+//        myRef = database.getReference(date);
+//        //DatabaseReference myRef = database.getReference("message01");
+//        EditText editText = findViewById(R.id.editText);
+//        String message = editText.getText().toString();
+//        myRef.setValue(message);
+//        //myRef.setValue("tets");
+//    }
 
     public void createAccount(View view){
         EditText editEmail = findViewById(R.id.editMail);
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = findViewById(R.id.editText);
+        //EditText editText = findViewById(R.id.editText);
         //String message = editText.getText().toString();
         String message = user.getEmail();
         intent.putExtra(EXTRA_MESSAGE, message);

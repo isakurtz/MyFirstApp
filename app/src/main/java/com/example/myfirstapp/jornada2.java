@@ -43,7 +43,7 @@ public class jornada2 extends AppCompatActivity {
             String res = edit.getText().toString();
             res = res.toLowerCase().replaceAll("\\.|,|0|","").trim();
             TextView editText = findViewById(R.id.textView5);
-            if(res.equals("73")){
+            if(res.equals("3")){
                 editText.setText("Parabéns + 50 pontos!");
                 myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+50 +"");
             }
