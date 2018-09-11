@@ -27,6 +27,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class DisplayMessageActivity extends AppCompatActivity{
+    private static final int QUESTIONNAIRE_REQUEST = 1;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private List<User> userList = new ArrayList<>();
@@ -55,9 +56,12 @@ public class DisplayMessageActivity extends AppCompatActivity{
             }
         }
 
-        message= currentUser.getEmail() + " Pontos: " + u.getPoints() ;
+        message= currentUser.getEmail() + System.getProperty ("line.separator")+ "Pontos: " + u.getPoints() ;
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+        TextView te = findViewById(R.id.textView);
+        te.setText(message);
+        /*
         btnScan = (Button) findViewById(R.id.scanQR);
         final Activity activity = this;
 
@@ -74,6 +78,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
 
 
+**/
 
        //myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+10 +"");
 
@@ -82,7 +87,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
     }
 
-
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
@@ -108,11 +113,41 @@ public class DisplayMessageActivity extends AppCompatActivity{
         textView.setText(msg);
     }
 
+**/
 
-    public void iniciarJ( View view){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        Intent intent = new Intent(this, JornadaActivity.class);
-        startActivity(intent);    }
+        if (requestCode == QUESTIONNAIRE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                TextView text = findViewById(R.id.textView);
+                String msg = text.getText().toString();
+                msg+= System.getProperty ("line.separator")+ "Curso: " + Questionario.curso;
+                text.setText(msg);
+                alert(Questionario.curso);
+            }
+        }
+    }
+
+    private void alert(String msg){
+        //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Curso Sugerido");
+        builder.setMessage(msg);
+        AlertDialog alert1 = builder.create();
+        alert1.show();
+    }
+
+    public void iniciarJ(View view){
+
+        //Intent intent = new Intent(this, JornadaActivity.class);
+        //startActivity(intent);
+
+        Intent intent = new Intent(this,QuestionarioActivity.class);
+        //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+        startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
+
+    }
 
 
 //    private void addEventFirebaseListener() {

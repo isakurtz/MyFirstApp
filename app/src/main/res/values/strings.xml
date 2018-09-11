@@ -6,4 +6,5 @@
     <string name="edit_pwd">Senha</string>
     <string name="button_login">Login</string>
     <string name="button_SignUp">Sign Up</string>
+    <string name="title_activity_questionario">QuestionarioActivity</string>
 </resources>
