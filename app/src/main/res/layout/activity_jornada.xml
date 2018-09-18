@@ -8,20 +8,26 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="226dp"
-        android:layout_height="82dp"
+        android:layout_width="287dp"
+        android:layout_height="231dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="“Se João estuda, então Marcela chora.” A negação dessa proposição é logicamente equivalente a:"
+        android:scrollbars="vertical"
+        android:text='A lógica é o uso e estudo filosófico do raciocínio, sendo discutida e utilizada principalmente na disciplinas de filosofia, matématica e computação. Na lógica clássica a partir de uma série de proposições verdadeiras ou falsas podemos deduzir alguns resultados. Abaixo serão apresentadas algumas proposições verdadeiras, a partir delas tente responder a pergunta apresentada.  "Ada, Alan e Ed entram em um bar, cada um pediu uma bebida. descrubra quem pediu suco" Ada pediu limonada Alan não pediu cerveja Ed não pediu suco'
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:scrollbarStyle="insideOverlay" />
 
     <RadioGroup
         android:id="@+id/group"
-        android:layout_width="177dp"
-        android:layout_height="175dp"
+        android:layout_width="76dp"
+        android:layout_height="135dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -35,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="Selected"
-            android:text="João não estuda ou Marcela não chora." />
+            android:text="Ada" />
 
 
         <RadioButton
@@ -44,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="Selected"
-            android:text="João não estuda e Marcela não chora." />
+            android:text="Alan" />
 
         <RadioButton
             android:id="@+id/radioButton7"
@@ -52,16 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="Selected"
-            android:text="João estuda e Marcela não chora." />
+            android:text="Ed" />
 
-        <RadioButton
-            android:id="@+id/radioButton8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:onClick="Selected"
-            android:text="Se João não estuda então Marcela não chora." />
     </RadioGroup>
 
     <TextView

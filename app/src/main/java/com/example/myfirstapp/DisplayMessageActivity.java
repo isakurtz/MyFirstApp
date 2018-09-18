@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -18,21 +17,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.zxing.Result;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-
 public class DisplayMessageActivity extends AppCompatActivity{
     private static final int QUESTIONNAIRE_REQUEST = 1;
+    private static final int QUESTION_REQUEST = 2;
+    TextView jornada;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private List<User> userList = new ArrayList<>();
     private User u;
     private FirebaseAuth mAuth;
+    private boolean quest;
     //private ZXingScannerView mScannerView;
     private Button btnScan;
 
@@ -61,7 +61,10 @@ public class DisplayMessageActivity extends AppCompatActivity{
         myRef = database.getReference();
         TextView te = findViewById(R.id.textView);
         te.setText(message);
-        /*
+
+        jornada = findViewById(R.id.textView3);
+        jornada.setText("Iniciar Teste");
+
         btnScan = (Button) findViewById(R.id.scanQR);
         final Activity activity = this;
 
@@ -78,7 +81,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
 
 
-**/
+
 
        //myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+10 +"");
 
@@ -93,16 +96,16 @@ public class DisplayMessageActivity extends AppCompatActivity{
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if(result != null){
             if (result.getContents() !=  null){
-                alert(result.getContents());
+                alertCurso(result.getContents());
             }else{
-                alert("Scan cancelado");
+                alertCurso("Scan cancelado");
             }
         }else{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    private void alert(String msg){
+**/
+    private void alertScan(String msg){
         //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Result");
@@ -113,7 +116,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
         textView.setText(msg);
     }
 
-**/
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -124,12 +127,24 @@ public class DisplayMessageActivity extends AppCompatActivity{
                 String msg = text.getText().toString();
                 msg+= System.getProperty ("line.separator")+ "Curso: " + Questionario.curso;
                 text.setText(msg);
-                alert(Questionario.curso);
+                alertCurso(Questionario.curso);
+                quest = true;
             }
         }
+        else if(requestCode == QUESTION_REQUEST){
+            if(resultCode == RESULT_OK){
+                u.setTarefa();
+            }
+
+        }
+        else{
+            String x = data.getStringExtra("resposta");
+                    alertScan(x);
+        }
+
     }
 
-    private void alert(String msg){
+    private void alertCurso(String msg){
         //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Curso Sugerido");
@@ -140,34 +155,51 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
     public void iniciarJ(View view){
 
+        if(quest){
+            if(u.getTarefa() == 0) {
+                Intent intent = new Intent(this, JornadaActivity.class);
+                startActivityForResult(intent, QUESTION_REQUEST);
+            }
+            if(u.getTarefa() == 1){
+                Intent intent = new Intent(this, jornada2.class);
+                startActivityForResult(intent, QUESTION_REQUEST);
+            }
+            if(u.getTarefa() >1){
+                Intent intent = new Intent(this, ScanActivity.class);
+                startActivityForResult(intent, 6);
+
+            }
+        }
         //Intent intent = new Intent(this, JornadaActivity.class);
         //startActivity(intent);
 
-        Intent intent = new Intent(this,QuestionarioActivity.class);
-        //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
-        startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
+        else {
+            jornada.setText("Próxima pergunta");
+            Intent intent = new Intent(this, QuestionarioActivity.class);
+            //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+            startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
+        }
 
     }
 
 
-//    private void addEventFirebaseListener() {
-//        //Progressing
-//
-//
-//       myRef.child("users").addValueEventListener(new ValueEventListener() {
-//           @Override
-//           public void onDataChange(DataSnapshot dataSnapshot) {
-//              // currentUser = dataSnapshot.getValue(User.class);
-//               //TextView textView = findViewById(R.id.testPoints);
-//               //textView.setText(currentUser.getPoints());
-//               System.out.println("");
-//           }
-//
-//           @Override
-//           public void onCancelled(DatabaseError databaseError) {
-//
-//           }
-//        });
-//    }
+    private void addEventFirebaseListener() {
+        //Progressing
+
+
+       myRef.child("users").addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+              // currentUser = dataSnapshot.getValue(User.class);
+               //TextView textView = findViewById(R.id.testPoints);
+               //textView.setText(currentUser.getPoints());
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+          }
+       });
+    }
 
 }

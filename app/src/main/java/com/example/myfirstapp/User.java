@@ -6,6 +6,7 @@ public class User {
     private String uid;
     private String email;
     private String points;
+    private int tarefa;
 
     public User(){}
     public User(String name, String uid, String email, String points) {
@@ -13,6 +14,7 @@ public class User {
         this.uid = uid;
         this.email = email;
         this.points = points;
+        tarefa = 0;
     }
 
     public String getName() {
@@ -45,5 +47,10 @@ public class User {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public int getTarefa(){ return tarefa;}
+    public void setTarefa(){
+        tarefa++;
     }
 }

@@ -8,37 +8,32 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="244dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="16dp"
-        android:text="O preço do livro com capa é 7 dólares e 60 centavos. Qual o preço da capa se o livro é 7 dólares mais caro?"
+        android:layout_width="326dp"
+        android:layout_height="305dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical"
+        android:text="Uma das áreas bases da computação é programação. Um programa ou script é uma série de instruções que são interpretadas por uma máquina, essas instruções podem ser escritas em ínumeras linguagens de programação diferentes, que são adequadas para diferentes propositos. Independentemente da linguagem a base lógica é muito similar na maioria delas, e uma das instruções lógicas mais básicas é o 'if' (se). Por exemplo na instrução 'Se x é par então some 4' o computador receberia uma entrada x, que pode assumir qualquer valor númerico, avaliaria a condição (x é par) e somaria 4 ao resultado apenas se for verdadeira, se a condição for falsa (o x recebido é ímpar) a instrução seria ignorada. Baseando-se na lógica de programação do if, tente resolver o problema:"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="200dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Resposta"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:onClick="okClicked"
+        android:onClick="clickk"
         android:text="OK"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/griuoo" />
 
     <TextView
         android:id="@+id/textView5"
@@ -48,4 +43,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
+
+    <RadioGroup
+        android:id="@+id/griuoo"
+        android:layout_width="132dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="okClicked"
+            android:text="TURING" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="okClicked"
+            android:text="SAYING" />
+    </RadioGroup>
+
 </android.support.constraint.ConstraintLayout>
