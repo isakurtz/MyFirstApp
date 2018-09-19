@@ -1,4 +1,4 @@
-package programa;
+package com.programa;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

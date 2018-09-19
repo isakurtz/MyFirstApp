@@ -1,4 +1,4 @@
-package programa;
+package com.programa;
 
 public class Questionario {
 

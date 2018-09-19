@@ -1,4 +1,4 @@
-package programa;
+package com.programa;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +29,7 @@ public class jornada2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String text = "\n" +
-                "Uma das áreas bases da computação é programação. Um programa ou script é uma série de instruções que são interpretadas por uma máquina, essas instruções podem ser escritas em ínumeras linguagens de programação diferentes, que são adequadas para diferentes propositos. Independentemente da linguagem a base lógica é muito similar na maioria delas, e uma das instruções lógicas mais básicas é o 'if' (se). Por exemplo na instrução 'Se x é par então some 4' o computador receberia uma entrada x, que pode assumir qualquer valor númerico, avaliaria a condição (x é par) e somaria 4 ao resultado apenas se for verdadeira, se a condição for falsa (o x recebido é ímpar) a instrução seria ignorada. Baseando-se na lógica de programação do if, tente resolver o problema:\n" +
+                "Uma das áreas bases da computação é programação. Um com ou script é uma série de instruções que são interpretadas por uma máquina, essas instruções podem ser escritas em ínumeras linguagens de programação diferentes, que são adequadas para diferentes propositos. Independentemente da linguagem a base lógica é muito similar na maioria delas, e uma das instruções lógicas mais básicas é o 'if' (se). Por exemplo na instrução 'Se x é par então some 4' o computador receberia uma entrada x, que pode assumir qualquer valor númerico, avaliaria a condição (x é par) e somaria 4 ao resultado apenas se for verdadeira, se a condição for falsa (o x recebido é ímpar) a instrução seria ignorada. Baseando-se na lógica de programação do if, tente resolver o problema:\n" +
                 "\n" +
                 "Considere que b é a palavra ZAPING e x é igual à 5, qual seria o valor de b após a execução das instruções abaixo:\n" +
                 "\t\t\n" +

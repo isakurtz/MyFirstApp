@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:508014746793:android:f363407d1d70e5c1",
         "android_client_info": {
-          "package_name": "com.example.myfirstapp"
+          "package_name": "com.programa"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "508014746793-966a7p7hghhk4qfs3375t9pkvh94m8ci.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.myfirstapp",
+            "package_name": "com.programa",
             "certificate_hash": "87a72df1f5b6315d90019652de3bd79f2beb1a99"
           }
         },

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="programa.QuestionarioActivity">
+    tools:context="com.programa.QuestionarioActivity">
 
     <TextView
         android:id="@+id/textPergunta"
