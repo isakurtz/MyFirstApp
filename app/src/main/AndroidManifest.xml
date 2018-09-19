@@ -24,7 +24,8 @@
         <activity android:name=".JornadaActivity" />
         <activity android:name=".jornada2" />
         <activity android:name=".QuestionarioActivity" />
-        <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".ScanActivity">
+        </activity>
     </application>
 
 </manifest>

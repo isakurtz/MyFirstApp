@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -26,7 +27,7 @@ import java.util.List;
 public class DisplayMessageActivity extends AppCompatActivity{
     private static final int QUESTIONNAIRE_REQUEST = 1;
     private static final int QUESTION_REQUEST = 2;
-    TextView jornada;
+    Button jornada;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private List<User> userList = new ArrayList<>();
@@ -55,14 +56,16 @@ public class DisplayMessageActivity extends AppCompatActivity{
                 u= a;
             }
         }
-
-        message= currentUser.getEmail() + System.getProperty ("line.separator")+ "Pontos: " + u.getPoints() ;
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-        TextView te = findViewById(R.id.textView);
-        te.setText(message);
+        TextView textNome = findViewById(R.id.texNome);
+        textNome.setText("Email: " + currentUser.getEmail());
+        TextView textCurso = findViewById(R.id.textCurso);
+        textCurso.setText("Curso: ");
+        TextView textPontos = findViewById(R.id.textPontos);
+        textPontos.setText("Pontos: "+ u.getPoints());
 
-        jornada = findViewById(R.id.textView3);
+        jornada = findViewById(R.id.buttonIn);
         jornada.setText("Iniciar Teste");
 
         btnScan = (Button) findViewById(R.id.scanQR);
@@ -86,7 +89,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
        //myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+10 +"");
 
 
-      // addEventFirebaseListener();
+       addEventFirebaseListener();
 
     }
 
@@ -123,10 +126,10 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
         if (requestCode == QUESTIONNAIRE_REQUEST) {
             if (resultCode == RESULT_OK) {
-                TextView text = findViewById(R.id.textView);
-                String msg = text.getText().toString();
-                msg+= System.getProperty ("line.separator")+ "Curso: " + Questionario.curso;
-                text.setText(msg);
+               // super.onActivityResult(requestCode, resultCode, data);
+                String x = data.getStringExtra("resposta");
+                TextView text = findViewById(R.id.textCurso);
+                text.setText("Curso: " + Questionario.curso);
                 alertCurso(Questionario.curso);
                 quest = true;
             }
@@ -134,12 +137,18 @@ public class DisplayMessageActivity extends AppCompatActivity{
         else if(requestCode == QUESTION_REQUEST){
             if(resultCode == RESULT_OK){
                 u.setTarefa();
+                ImageView image = findViewById(R.id.imageView3);
+                image.setVisibility(View.VISIBLE);
             }
 
         }
         else{
-            String x = data.getStringExtra("resposta");
-                    alertScan(x);
+            if(data !=null) {
+                ImageView image = findViewById(R.id.imageView4);
+                image.setVisibility(View.VISIBLE);
+                String x = data.getStringExtra("resposta");
+                alertScan(x);
+            }
         }
 
     }
@@ -148,6 +157,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
         //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Curso Sugerido");
+        if(msg.contains("Nenhum")) msg = "Você respondeu não em todas a perguntas, nenhum curso sugerido :(";
         builder.setMessage(msg);
         AlertDialog alert1 = builder.create();
         alert1.show();
@@ -160,11 +170,11 @@ public class DisplayMessageActivity extends AppCompatActivity{
                 Intent intent = new Intent(this, JornadaActivity.class);
                 startActivityForResult(intent, QUESTION_REQUEST);
             }
-            if(u.getTarefa() == 1){
-                Intent intent = new Intent(this, jornada2.class);
-                startActivityForResult(intent, QUESTION_REQUEST);
-            }
-            if(u.getTarefa() >1){
+           // if(u.getTarefa() == 1){
+              //  Intent intent = new Intent(this, jornada2.class);
+               // startActivityForResult(intent, QUESTION_REQUEST);
+            //}
+            if(u.getTarefa() >0){
                 Intent intent = new Intent(this, ScanActivity.class);
                 startActivityForResult(intent, 6);
 
@@ -174,7 +184,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
         //startActivity(intent);
 
         else {
-            jornada.setText("Próxima pergunta");
+            jornada.setText("Próxima QUEST");
             Intent intent = new Intent(this, QuestionarioActivity.class);
             //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
             startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
@@ -187,12 +197,12 @@ public class DisplayMessageActivity extends AppCompatActivity{
         //Progressing
 
 
-       myRef.child("users").addValueEventListener(new ValueEventListener() {
+       myRef.child("users").child(u.getUid()).child("points").addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
-              // currentUser = dataSnapshot.getValue(User.class);
-               //TextView textView = findViewById(R.id.testPoints);
-               //textView.setText(currentUser.getPoints());
+               String c = (String)dataSnapshot.getValue();
+               TextView textView = findViewById(R.id.textPontos);
+               textView.setText("Pontos:"+ c);
            }
 
            @Override

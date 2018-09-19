@@ -25,6 +25,7 @@ public class jornada2 extends AppCompatActivity {
     private List<User> userList = new ArrayList<>();
     private User u;
     private FirebaseAuth mAuth;
+    private boolean acerto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +71,30 @@ public class jornada2 extends AppCompatActivity {
             switch(view.getId()) {
                 case R.id.radioButton:
                     if (checked){
+                        acerto = true;
                         TextView editText = findViewById(R.id.textView5);
                         editText.setText("Parabéns + 30 pontos!");
-                        myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+30 +"");
+                        //myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+30 +"");
                         Button b = findViewById(R.id.button3);
                         b.setVisibility(View.VISIBLE);
                     }
                     break;
-                default: TextView editText = findViewById(R.id.resultado);
-                    editText.setText("Resposta Errada");
+                default:
+                    //TextView editText = findViewById(R.id.resultado);
+                    //acerto = false;
+                   // editText.setText("Resposta Errada");
             }
 
 
         }
 
         public void clickk(View view){
+            if(acerto){
+                myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints())+30 +"");
+            }
+            else{
+
+            }
             Intent devolve = new Intent();
             devolve.putExtra("resposta", "Resposta");
             setResult(RESULT_OK, devolve);

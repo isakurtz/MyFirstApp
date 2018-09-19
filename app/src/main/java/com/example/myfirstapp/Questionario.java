@@ -44,7 +44,7 @@ public class Questionario {
 
     public String getCurso(){
         double po = 0;
-        String opc = "";
+        String opc = "Nenhum Selecionado";
         for (Curso c : cursos) {
             if (c.getPont() > po){
                 opc = c.getNome();
@@ -59,7 +59,7 @@ public class Questionario {
         if(resp){
             switch(cont){
                 case 1:
-                    cursos[1].maisPont(1);
+                    cursos[1].maisPont(1.5);
                     cursos[0].maisPont(0.5);
                     break;
                 case 2:
@@ -68,21 +68,21 @@ public class Questionario {
                     cursos[3].maisPont(1);
                     break;
                 case 3:
-                    cursos[0].maisPont(1);
-                    cursos[3].maisPont(0.5);
+                    cursos[0].maisPont(1.5);
+                    cursos[3].maisPont(1);
                     break;
                 case 4:
                     cursos[0].maisPont(1);
-                    cursos[1].maisPont(1);
+                    cursos[1].maisPont(1.5);
                     break;
                 case 5:
                     cursos[0].maisPont(0.5);
                     cursos[2].maisPont(1);
-                    cursos[3].maisPont(1);
+                    cursos[3].maisPont(1.5);
                     break;
                 case 6:
-                    cursos[2].maisPont(1);
-                    cursos[3].maisPont(0.5);
+                    cursos[2].maisPont(2);
+                    cursos[3].maisPont(1);
                     break;
                 default: break;
             }

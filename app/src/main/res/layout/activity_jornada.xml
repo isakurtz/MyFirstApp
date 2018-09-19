@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="287dp"
-        android:layout_height="231dp"
+        android:layout_width="350dp"
+        android:layout_height="289dp"
         android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -29,6 +29,7 @@
         android:layout_width="76dp"
         android:layout_height="135dp"
         android:layout_marginTop="8dp"
+        android:clickable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,25 +63,18 @@
 
     </RadioGroup>
 
-    <TextView
-        android:id="@+id/resultado"
-        android:layout_width="107dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/group" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:onClick="butoonclicked"
-        android:text="próxima"
+        android:text="OK"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultado"
-        tools:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@+id/group" />
 
 </android.support.constraint.ConstraintLayout>

@@ -44,16 +44,19 @@ public class ScanActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
             if(result != null){
-                Intent devolve = new Intent();
-                devolve.putExtra("resposta", result.getContents());
-                setResult(RESULT_OK, data);
+                if(result.getContents()!=null) {
+                    Intent devolve = new Intent();
+                    devolve.putExtra("resposta", result.getContents());
+                    setResult(RESULT_OK, devolve);
+                }
                 finish();
             }else{
                 super.onActivityResult(requestCode, resultCode, data);
-            }
+               finish();
+           }
         }
 }

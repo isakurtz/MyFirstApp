@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text=" Para completar essa tarefa solucione o enigma abaixo. A resposta indicará um lugar, vá até ele e procure por um QR code. Quando achar o QR code clique em scan e leia o código.\n
-Aqui é uma área mais social, ainda que meio escondida. Precisa ir ao banheiro? talvez me encontre pelo caminho. O meu nome é uma sigla, como um partido. Aliás, eu, partidos e outubro desse ano temos outra coisa em comum. Se você dobrar errado pode acabar tomando um café, mas aqui temos outras diversões. "
+Aqui é uma área mais social, ainda que meio escondida. Precisa ir ao banheiro? talvez me encontre pelo caminho. O meu nome é uma sigla, como um partido. Se você dobrar errado pode acabar tomando um café, mas aqui temos outras diversões. "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
