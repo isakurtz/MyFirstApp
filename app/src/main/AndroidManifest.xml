@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myfirstapp">
+    package="programa">
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="programa.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity" />
-        <activity android:name=".JornadaActivity" />
-        <activity android:name=".jornada2" />
-        <activity android:name=".QuestionarioActivity" />
-        <activity android:name=".ScanActivity">
+        <activity android:name="programa.DisplayMessageActivity" />
+        <activity android:name="programa.JornadaActivity" />
+        <activity android:name="programa.jornada2" />
+        <activity android:name="programa.QuestionarioActivity" />
+        <activity android:name="programa.ScanActivity">
         </activity>
     </application>
 
