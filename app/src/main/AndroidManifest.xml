@@ -3,6 +3,7 @@
     package="com.programa">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.programa.MainActivity"
+            android:name=".MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,12 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.programa.DisplayMessageActivity" />
-        <activity android:name="com.programa.JornadaActivity" />
-        <activity android:name="com.programa.jornada2" />
-        <activity android:name="com.programa.QuestionarioActivity" />
-        <activity android:name="com.programa.ScanActivity">
-        </activity>
+        <activity android:name=".DisplayMessageActivity" />
+        <activity android:name=".JornadaActivity" />
+        <activity android:name=".jornada2" />
+        <activity android:name=".QuestionarioActivity" />
+        <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".MapsWebView"></activity>
     </application>
 
 </manifest>

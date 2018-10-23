@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,8 +65,8 @@ public class DisplayMessageActivity extends AppCompatActivity{
         TextView textPontos = findViewById(R.id.textPontos);
         textPontos.setText("Pontos: "+ u.getPoints());
 
-        jornada = findViewById(R.id.buttonIn);
-        jornada.setText("Iniciar Teste");
+        //jornada = findViewById(R.id.buttonIn);
+        //jornada.setText("Iniciar Teste");
 
         btnScan = (Button) findViewById(R.id.scanQR);
         final Activity activity = this;
@@ -166,6 +167,10 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
         if(quest){
             if(u.getTarefa() == 0) {
+                ImageButton b = findViewById(R.id.imageButton3);
+                b.setImageResource(R.drawable.questico);
+                b = findViewById(R.id.imageButton4);
+                b.setClickable(false);
                 Intent intent = new Intent(this, JornadaActivity.class);
                 startActivityForResult(intent, QUESTION_REQUEST);
             }
@@ -183,7 +188,11 @@ public class DisplayMessageActivity extends AppCompatActivity{
         //startActivity(intent);
 
         else {
-            jornada.setText("Próxima QUEST");
+            //jornada.setText("Próxima QUEST");
+            ImageButton b = findViewById(R.id.imageButton4);
+            b.setImageResource(R.drawable.questico);
+            b = findViewById(R.id.imageButton2);
+            b.setClickable(false);
             Intent intent = new Intent(this, QuestionarioActivity.class);
             //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
             startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
@@ -191,11 +200,13 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
     }
 
+    public void iniciaMaps(View view){
+        Intent intent = new Intent(this, MapsWebView.class);
+        startActivity(intent);
+    }
 
     private void addEventFirebaseListener() {
         //Progressing
-
-
        myRef.child("users").child(u.getUid()).child("points").addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
