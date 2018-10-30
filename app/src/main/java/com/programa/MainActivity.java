@@ -21,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp";
@@ -144,10 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setUPUser(FirebaseUser user){
-
-        double d = Math.random()*100;
-        User u = new User("", user.getUid(),user.getEmail(),(int)(d)+"");
+        User u = new User("", user.getUid(),user.getEmail(),0+"");
+        myRef.child("ranking").child(u.getEmail().replace(".", "")).setValue(u.getPoints());
         myRef.child("users").child(user.getUid()).setValue(u);
+
+        //myRef.child("ranking").setValue(u.getEmail());
+
     }
 
     public void sendMessage( FirebaseUser user){

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +23,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DisplayMessageActivity extends AppCompatActivity{
     private static final int QUESTIONNAIRE_REQUEST = 1;
@@ -34,16 +37,18 @@ public class DisplayMessageActivity extends AppCompatActivity{
     private User u;
     private FirebaseAuth mAuth;
     private boolean quest;
+    private List<Ranking> listRanking;
     //private ZXingScannerView mScannerView;
     private Button btnScan;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
 
-
+        listRanking = new ArrayList<>();
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         mAuth = FirebaseAuth.getInstance();
@@ -68,10 +73,10 @@ public class DisplayMessageActivity extends AppCompatActivity{
         //jornada = findViewById(R.id.buttonIn);
         //jornada.setText("Iniciar Teste");
 
-        btnScan = (Button) findViewById(R.id.scanQR);
+        //btnScan = (Button) findViewById(R.id.scanQR);
         final Activity activity = this;
 
-        btnScan.setOnClickListener(new View.OnClickListener() {
+       /* btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(activity);
@@ -81,7 +86,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
                 integrator.initiateScan();
             }
         });
-
+**/
 
 
 
@@ -90,6 +95,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
 
        addEventFirebaseListener();
+       addChildEventListener();
 
     }
 
@@ -137,15 +143,15 @@ public class DisplayMessageActivity extends AppCompatActivity{
         else if(requestCode == QUESTION_REQUEST){
             if(resultCode == RESULT_OK){
                 u.setTarefa();
-                ImageView image = findViewById(R.id.imageView3);
-                image.setVisibility(View.VISIBLE);
+                //ImageView image = findViewById(R.id.imageView3);
+               // image.setVisibility(View.VISIBLE);
             }
 
         }
         else{
             if(data !=null) {
-                ImageView image = findViewById(R.id.imageView4);
-                image.setVisibility(View.VISIBLE);
+                //ImageView image = findViewById(R.id.imageView4);
+                //image.setVisibility(View.VISIBLE);
                 String x = data.getStringExtra("resposta");
                 alertScan(x);
             }
@@ -167,12 +173,15 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
         if(quest){
             if(u.getTarefa() == 0) {
-                ImageButton b = findViewById(R.id.imageButton3);
-                b.setImageResource(R.drawable.questico);
-                b = findViewById(R.id.imageButton4);
-                b.setClickable(false);
+
                 Intent intent = new Intent(this, JornadaActivity.class);
                 startActivityForResult(intent, QUESTION_REQUEST);
+                ImageButton b = findViewById(R.id.imageButton3);
+                b.setImageResource(R.drawable.quest);
+                b.setClickable(true);
+                b = findViewById(R.id.imageButton4);
+                b.setImageResource(R.drawable.questcompleto);
+                b.setClickable(false);
             }
            // if(u.getTarefa() == 1){
               //  Intent intent = new Intent(this, jornada2.class);
@@ -189,13 +198,16 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
         else {
             //jornada.setText("Próxima QUEST");
-            ImageButton b = findViewById(R.id.imageButton4);
-            b.setImageResource(R.drawable.questico);
-            b = findViewById(R.id.imageButton2);
-            b.setClickable(false);
+
             Intent intent = new Intent(this, QuestionarioActivity.class);
             //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
             startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
+            ImageButton b = findViewById(R.id.imageButton4);
+            b.setImageResource(R.drawable.quest);
+            b.setClickable(true);
+            b = findViewById(R.id.imageButton2);
+            b.setClickable(false);
+            b.setImageResource(R.drawable.testecompleto);
         }
 
     }
@@ -207,10 +219,12 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
     private void addEventFirebaseListener() {
         //Progressing
+
        myRef.child("users").child(u.getUid()).child("points").addValueEventListener(new ValueEventListener() {
            @Override
            public void onDataChange(DataSnapshot dataSnapshot) {
                String c = (String)dataSnapshot.getValue();
+               myRef.child("ranking").child(u.getEmail().replace(".", "")).setValue(c);
                TextView textView = findViewById(R.id.textPontos);
                textView.setText("Pontos:"+ c);
            }
@@ -222,4 +236,61 @@ public class DisplayMessageActivity extends AppCompatActivity{
        });
     }
 
+
+    public void alertRanking(View view){
+        //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Ranking");
+        for(int i = 0; i < listRanking.size();i++){
+            for(int j = 0; j< listRanking.size()-1;j++){
+                if(listRanking.get(j).getPontos() < listRanking.get(j+1).getPontos()){
+                    Ranking aux = listRanking.get(j);
+                    listRanking.set(j,listRanking.get(j+1));
+                    listRanking.set(j+1, aux);
+                }
+            }
+        }
+        String msg ="";
+        for (Ranking s:listRanking
+             ) {
+            msg += s.getEmail() +" "+ s.getPontos() +System.getProperty ("line.separator");
+        }
+
+        builder.setMessage(msg);
+        AlertDialog alert1 = builder.create();
+        alert1.show();
+    }
+
+
+    private void addChildEventListener(){
+        myRef.child("ranking").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                listRanking.add(new Ranking((String)dataSnapshot.getKey(),Integer.parseInt((String)dataSnapshot.getValue())));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                int j = 0;
+                for (int i =0; i<listRanking.size();i++){
+                    if(listRanking.get(i).getEmail().equals(dataSnapshot.getKey())) listRanking.set(i,new Ranking((String)dataSnapshot.getKey(),Integer.parseInt((String)dataSnapshot.getValue())) );                }
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
