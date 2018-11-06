@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_account"
-        android:title="my account"></item>
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@android:drawable/btn_star_big_on"
+        android:onClick="mostraRanking"
+        android:title="Ranking"></item>
+    <item
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Badges" />
 </menu>

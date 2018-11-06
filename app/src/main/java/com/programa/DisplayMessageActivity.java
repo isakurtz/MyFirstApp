@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -37,7 +38,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
     private User u;
     private FirebaseAuth mAuth;
     private boolean quest;
-    private List<Ranking> listRanking;
+
     //private ZXingScannerView mScannerView;
     private Button btnScan;
 
@@ -48,7 +49,6 @@ public class DisplayMessageActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
 
-        listRanking = new ArrayList<>();
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         mAuth = FirebaseAuth.getInstance();
@@ -95,7 +95,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
 
        addEventFirebaseListener();
-       addChildEventListener();
+
 
     }
 
@@ -217,6 +217,11 @@ public class DisplayMessageActivity extends AppCompatActivity{
         startActivity(intent);
     }
 
+    public void mostraRanking(MenuItem item){
+        Intent intent = new Intent(this, RankingActivity.class);
+        startActivity(intent);
+    }
+
     private void addEventFirebaseListener() {
         //Progressing
 
@@ -236,61 +241,4 @@ public class DisplayMessageActivity extends AppCompatActivity{
        });
     }
 
-
-    public void alertRanking(View view){
-        //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Ranking");
-        for(int i = 0; i < listRanking.size();i++){
-            for(int j = 0; j< listRanking.size()-1;j++){
-                if(listRanking.get(j).getPontos() < listRanking.get(j+1).getPontos()){
-                    Ranking aux = listRanking.get(j);
-                    listRanking.set(j,listRanking.get(j+1));
-                    listRanking.set(j+1, aux);
-                }
-            }
-        }
-        String msg ="";
-        for (Ranking s:listRanking
-             ) {
-            msg += s.getEmail() +" "+ s.getPontos() +System.getProperty ("line.separator");
-        }
-
-        builder.setMessage(msg);
-        AlertDialog alert1 = builder.create();
-        alert1.show();
-    }
-
-
-    private void addChildEventListener(){
-        myRef.child("ranking").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                listRanking.add(new Ranking((String)dataSnapshot.getKey(),Integer.parseInt((String)dataSnapshot.getValue())));
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                int j = 0;
-                for (int i =0; i<listRanking.size();i++){
-                    if(listRanking.get(i).getEmail().equals(dataSnapshot.getKey())) listRanking.set(i,new Ranking((String)dataSnapshot.getKey(),Integer.parseInt((String)dataSnapshot.getValue())) );                }
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }

@@ -121,14 +121,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scanQR" />
 
-        <Button
-            android:id="@+id/rankingButton"
-            android:layout_width="168dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:onClick="alertRanking"
-            android:text="Ranking" />
-
         <ImageButton
             android:id="@+id/mapsButton"
             android:layout_width="183dp"

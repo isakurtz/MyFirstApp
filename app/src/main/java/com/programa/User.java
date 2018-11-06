@@ -1,5 +1,7 @@
 package com.programa;
 
+import java.util.ArrayList;
+
 public class User {
 
     private String name;
@@ -7,7 +9,6 @@ public class User {
     private String email;
     private String points;
     private int tarefa;
-
     public User(){}
     public User(String name, String uid, String email, String points) {
         this.name = name;
@@ -15,6 +16,7 @@ public class User {
         this.email = email;
         this.points = points;
         tarefa = 0;
+
     }
 
     public String getName() {

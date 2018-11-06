@@ -25,8 +25,12 @@
         <activity android:name=".JornadaActivity" />
         <activity android:name=".jornada2" />
         <activity android:name=".QuestionarioActivity" />
-        <activity android:name=".ScanActivity"></activity>
-        <activity android:name=".MapsWebView"></activity>
+        <activity android:name=".ScanActivity" />
+        <activity android:name=".MapsWebView" />
+        <activity android:name=".RankingActivity" android:label="Ranking" android:parentActivityName="com.programa.DisplayMessageActivity">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.programa.DisplayMessageActivity" /></activity>
     </application>
 
 </manifest>
