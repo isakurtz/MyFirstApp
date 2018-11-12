@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             setUPUser(user);
+                            sendMessage(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setUPUser(FirebaseUser user){
-        User u = new User("", user.getUid(),user.getEmail(),0+"");
+        User u = new User("", user.getUid(),user.getEmail(),0+"","");
         myRef.child("ranking").child(u.getEmail().replace(".", "")).setValue(u.getPoints());
         myRef.child("users").child(user.getUid()).setValue(u);
 

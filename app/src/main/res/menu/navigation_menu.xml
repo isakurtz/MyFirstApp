@@ -9,6 +9,13 @@
         android:onClick="mostraRanking"
         android:title="Ranking"></item>
     <item
+        android:id="@+id/navbadge"
         android:icon="@android:drawable/ic_menu_compass"
-        android:title="Badges" />
+        android:title="Badges"
+        android:onClick="mostraBadges"/>
+    <item
+        android:id="@+id/logTask"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Log de Tarefas"
+        android:onClick="mostraTarefas"/>
 </menu>

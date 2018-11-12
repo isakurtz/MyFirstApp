@@ -27,10 +27,13 @@
         <activity android:name=".QuestionarioActivity" />
         <activity android:name=".ScanActivity" />
         <activity android:name=".MapsWebView" />
-        <activity android:name=".RankingActivity" android:label="Ranking" android:parentActivityName="com.programa.DisplayMessageActivity">
-            <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.programa.DisplayMessageActivity" /></activity>
+        <activity
+            android:name=".RankingActivity"
+            android:label="Ranking"></activity>
+        <activity
+            android:name=".BadgesActivity"
+            android:label="Badges"></activity>
+        <activity android:name=".LogDeTarefasActivity" android:label="Log de Tarefas"></activity>
     </application>
 
 </manifest>

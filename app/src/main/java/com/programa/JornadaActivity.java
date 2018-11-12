@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -105,7 +106,10 @@ public class JornadaActivity extends AppCompatActivity {
         //startActivity(intent);
         if(acerto) {
             myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints()) + 30 + "");
-            alertScan("Parabéns + 30 pontos!");
+            if(!u.hasBadge("1")){
+                myRef.child("users").child(u.getUid()).child("badges").setValue(u.getBadgesToString()+"1;");
+            }
+            alertScan("Parabéns + 30 pontos! Você ganhou o badge Rei da Lógica");
         }
         else{
             alertScan("Resposta Errada");

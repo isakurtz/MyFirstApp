@@ -7,4 +7,6 @@
     <string name="button_login">Login</string>
     <string name="button_SignUp">Criar Conta</string>
     <string name="title_activity_questionario">QuestionarioActivity</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogDeTarefasActivity">
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="368dp"
+        android:layout_height="224dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="337dp"
+            android:layout_height="wrap_content"
+            android:text="Tarefa 1: Você resolveu um problema de lógica. A lógica é um dos pilares da computação, seja nas linguagens de programação ou no funcionamento dos componentes de hardware."
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="277dp" />
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="368dp"
+        android:layout_height="263dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tarefa 2: Você foi até o diretório academico de informática (DAI). Localizado em frente ao bar do prédio 32. O DAI representa os alunos dos cursos de informática da PUCRS e o espaço conta com uma mesa de sinuca de uso livre. No início do ano letivo o DAI costuma oferecer o serviço de confecção do cartão TRI de estudante."
+            android:visibility="invisible" />
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

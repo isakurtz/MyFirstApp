@@ -7,19 +7,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScanActivity extends AppCompatActivity {
 
     private Button btnScan;
+    private boolean acerto;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private List<User> userList = new ArrayList<>();
+    private User u;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
         btnScan = (Button) findViewById(R.id.button4);
         final Activity activity = this;
+
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        for ( User a: MainActivity.userList
+                ) {
+            if(a.getUid().equals(currentUser.getUid())){
+                u= a;
+            }
+        }
 
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +73,21 @@ public class ScanActivity extends AppCompatActivity {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
             if(result != null){
                 if(result.getContents()!=null) {
-                    Intent devolve = new Intent();
-                    devolve.putExtra("resposta", result.getContents());
-                    setResult(RESULT_OK, devolve);
+                    if(result.getContents().equals("DAI")){
+                        myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints()) + 100 + "");
+                        if(!u.hasBadge("2")){
+                            myRef.child("users").child(u.getUid()).child("badges").setValue(u.getBadgesToString()+"2;");
+                        }
+                        Intent devolve = new Intent();
+                        devolve.putExtra("resposta", result.getContents() + " Parabéns + 100 pontos! você ganhou o badge Explorador");
+                        setResult(RESULT_OK, devolve);
+                    }
+                    else{
+                        Intent devolve = new Intent();
+                        devolve.putExtra("resposta", result.getContents() + " Não é QR Code correto");
+                        setResult(RESULT_OK, devolve);
+                    }
+
                 }
                 finish();
             }else{
