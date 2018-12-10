@@ -12,7 +12,7 @@ public class BadgesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_badges);
         ImageView img;
-        for (String x: DisplayMessageActivity.badges
+        for (String x: MainMenuActivity.badges
              ) {
             switch (x){
                 case "1" : img = findViewById(R.id.imageViewLogica);

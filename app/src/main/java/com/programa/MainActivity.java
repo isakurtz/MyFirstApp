@@ -21,10 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp";
@@ -48,16 +45,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
     }
 
 
     private void addEventFirebaseListener() {
-        //Progressing
-
-
         myRef.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,24 +60,12 @@ public class MainActivity extends AppCompatActivity {
                     userList.add(user);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
-
-//    public void insertDatabase(View view){
-//
-//        String date = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss" ).format( Calendar.getInstance().getTime());
-//        myRef = database.getReference(date);
-//        //DatabaseReference myRef = database.getReference("message01");
-//        EditText editText = findViewById(R.id.editText);
-//        String message = editText.getText().toString();
-//        myRef.setValue(message);
-//        //myRef.setValue("tets");
-//    }
 
     public void createAccount(View view){
         EditText editEmail = findViewById(R.id.editMail);
@@ -98,20 +78,17 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             setUPUser(user);
                             sendMessage(user);
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+
                         }
 
-                        // ...
                     }
                 });
     }
@@ -145,39 +122,14 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-
-
     public void setUPUser(FirebaseUser user){
         User u = new User("", user.getUid(),user.getEmail(),0+"","");
         myRef.child("ranking").child(u.getEmail().replace(".", "")).setValue(u.getPoints());
         myRef.child("users").child(user.getUid()).setValue(u);
-
-        //myRef.child("ranking").setValue(u.getEmail());
-
     }
 
     public void sendMessage( FirebaseUser user){
-//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = database.getReference("user" + "_"+ user.getUid());
-//        final User[] post = new User[1];
-//
-//        // Attach a listener to read the data at our posts reference
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                post[0] = dataSnapshot.getValue(User.class);
-//                System.out.println(post[0]);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
-
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        //EditText editText = findViewById(R.id.editText);
-        //String message = editText.getText().toString();
+        Intent intent = new Intent(this, MainMenuActivity.class);
         String message = user.getEmail();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);

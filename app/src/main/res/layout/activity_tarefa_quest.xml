@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.programa.JornadaActivity">
+    tools:context="com.programa.TarefaQuestActivity">
 
     <TextView
         android:id="@+id/textView2"
@@ -16,7 +16,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:scrollbars="vertical"
-        android:text='A lógica é o uso e estudo filosófico do raciocínio, sendo discutida e utilizada principalmente na disciplinas de filosofia, matématica e computação. Na lógica clássica a partir de uma série de proposições verdadeiras ou falsas podemos deduzir alguns resultados. Abaixo serão apresentadas algumas proposições verdadeiras, a partir delas tente responder a pergunta apresentada.  "Ada, Alan e Ed entram em um bar, cada um pediu uma bebida. descrubra quem pediu suco" Ada pediu limonada Alan não pediu cerveja Ed não pediu suco'
+        android:text=''
         android:textAppearance="@android:style/TextAppearance.Material.Large"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"

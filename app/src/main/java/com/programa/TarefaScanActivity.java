@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,7 +18,7 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScanActivity extends AppCompatActivity {
+public class TarefaScanActivity extends AppCompatActivity {
 
     private Button btnScan;
     private boolean acerto;
@@ -28,10 +27,17 @@ public class ScanActivity extends AppCompatActivity {
     private List<User> userList = new ArrayList<>();
     private User u;
     private FirebaseAuth mAuth;
+    private String questao ;
+    private String resposta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan);
+        Bundle params = getIntent().getExtras();
+        String[] p = params.getString("params").split(":");
+        questao = p[4];
+        resposta = p[5];
+        setContentView(R.layout.activity_tarefa_scan);
         btnScan = (Button) findViewById(R.id.button4);
         final Activity activity = this;
 
@@ -73,7 +79,7 @@ public class ScanActivity extends AppCompatActivity {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
             if(result != null){
                 if(result.getContents()!=null) {
-                    if(result.getContents().equals("DAI")){
+                    if(result.getContents().equals(resposta)){
                         myRef.child("users").child(u.getUid()).child("points").setValue(Integer.parseInt(u.getPoints()) + 100 + "");
                         if(!u.hasBadge("2")){
                             myRef.child("users").child(u.getUid()).child("badges").setValue(u.getBadgesToString()+"2;");

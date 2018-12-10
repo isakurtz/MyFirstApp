@@ -21,11 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity" />
+        <activity android:name=".MainMenuActivity" />
         <activity android:name=".JornadaActivity" />
-        <activity android:name=".jornada2" />
         <activity android:name=".QuestionarioActivity" />
-        <activity android:name=".ScanActivity" />
+        <activity android:name=".TarefaScanActivity" />
         <activity android:name=".MapsWebView" />
         <activity
             android:name=".RankingActivity"

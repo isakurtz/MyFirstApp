@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplayMessageActivity extends AppCompatActivity{
+public class MainMenuActivity extends AppCompatActivity{
     private static final int QUESTIONNAIRE_REQUEST = 1;
     private static final int QUESTION_REQUEST = 2;
     public static final String TASK_MESSAGE = "taskComplete";
@@ -50,7 +50,7 @@ public class DisplayMessageActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_main_menu);
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
@@ -95,21 +95,6 @@ public class DisplayMessageActivity extends AppCompatActivity{
         addEventBadgesFirebaseListener();
     }
 
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(result != null){
-            if (result.getContents() !=  null){
-                alertCurso(result.getContents());
-            }else{
-                alertCurso("Scan cancelado");
-            }
-        }else{
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-**/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -120,7 +105,6 @@ public class DisplayMessageActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
     private void alertScan(String msg){
-        //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Result");
         builder.setMessage(msg);
@@ -135,7 +119,6 @@ public class DisplayMessageActivity extends AppCompatActivity{
 
         if (requestCode == QUESTIONNAIRE_REQUEST) {
             if (resultCode == RESULT_OK) {
-               // super.onActivityResult(requestCode, resultCode, data);
                 u.setTarefa();
                 String x = data.getStringExtra("resposta");
                 TextView text = findViewById(R.id.textCurso);
@@ -155,16 +138,12 @@ public class DisplayMessageActivity extends AppCompatActivity{
                 currentTask.setImageResource(R.drawable.questcompleto);
                 nextTask.setClickable(true);
                 nextTask.setImageResource(R.drawable.quest);
-                //ImageView image = findViewById(R.id.imageView3);
-               // image.setVisibility(View.VISIBLE);
             }
 
         }
         else{
             if(data !=null) {
                 u.setTarefa();
-                //ImageView image = findViewById(R.id.imageView4);
-                //image.setVisibility(View.VISIBLE);
                 String x = data.getStringExtra("resposta");
                 if(x.contains("DAI")){
                     currentTask.setClickable(false);
@@ -177,7 +156,6 @@ public class DisplayMessageActivity extends AppCompatActivity{
     }
 
     private void alertCurso(String msg){
-        //Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Curso Sugerido");
         if(msg.contains("Nenhum")) msg = "Você respondeu não em todas a perguntas, nenhum curso sugerido :(";
@@ -187,45 +165,35 @@ public class DisplayMessageActivity extends AppCompatActivity{
     }
 
     public void iniciarJ(View view){
+        Jornada j;
+        myRef.child("jornada").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                j = dataSnapshot.getValue(Jornada.class);
+                }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         if(quest){
-            if(u.getTarefa() == 1) {
-
+            j.iniciarTarefa(u.getTarefa(), QUESTION_REQUEST);
+            myRef.child("jornada").child("tarefaAtual").setValue(j.getTarefaAtual()+1);
+            if(j.tarefaAtual() == 1) {
                 currentTask = findViewById(R.id.imageButtonTarefa1);
                 nextTask = findViewById(R.id.imageButtonTarefa2);
-                Intent intent = new Intent(this, JornadaActivity.class);
-                startActivityForResult(intent, QUESTION_REQUEST);
-
-
             }
-           // if(u.getTarefa() == 1){
-              //  Intent intent = new Intent(this, jornada2.class);
-               // startActivityForResult(intent, QUESTION_REQUEST);
-            //}
-            if(u.getTarefa() >1){
+
+            if(j.tarefaAtual() >1){
                 currentTask = findViewById(R.id.imageButtonTarefa2);
-                Intent intent = new Intent(this, ScanActivity.class);
-                startActivityForResult(intent, 6);
-
             }
         }
-        //Intent intent = new Intent(this, JornadaActivity.class);
-        //startActivity(intent);
-
         else {
-            //jornada.setText("Próxima QUEST");
-
             Intent intent = new Intent(this, QuestionarioActivity.class);
-            //intent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
             startActivityForResult(intent, QUESTIONNAIRE_REQUEST);
-           // ImageButton b = findViewById(R.id.imageButtonTarefa1);
-           // b.setImageResource(R.drawable.quest);
-           // b.setClickable(true);
-           // b = findViewById(R.id.imageButtonQuestionario);
-           // b.setClickable(false);
-           // b.setImageResource(R.drawable.testecompleto);
         }
-
     }
 
     public void iniciaMaps(View view){
@@ -301,7 +269,6 @@ public class DisplayMessageActivity extends AppCompatActivity{
                         }
                     }
                 }
-
 
             }
 

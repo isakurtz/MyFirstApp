@@ -13,7 +13,7 @@ public class LogDeTarefasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_de_tarefas);
         Intent intent = getIntent();
-        String message = intent.getStringExtra(DisplayMessageActivity.TASK_MESSAGE);
+        String message = intent.getStringExtra(MainMenuActivity.TASK_MESSAGE);
         if(message.equals("2")){
             TextView text = findViewById(R.id.textView);
             text.setVisibility(View.VISIBLE);
